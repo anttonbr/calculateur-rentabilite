@@ -344,10 +344,10 @@ class SolarCalculatorRentabilite {
         return array(
             'yearly_savings' => round($yearly_savings),
             'annual_production' => round($annual_production),
-            'power_kwc' => round($power_kwc, 1),
+            'power_kwc' => round($power_kwc),
             'panels_count' => $panels_count,
             'total_investment' => round($total_investment),
-            'payback_years' => round($payback_years, 1),
+            'payback_years' => round($payback_years),
             'chart_data' => $this->solar_calc_generate_chart_data($yearly_savings, $total_investment, $payback_years)
         );
     }
