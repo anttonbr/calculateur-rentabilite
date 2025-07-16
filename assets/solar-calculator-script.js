@@ -27,8 +27,8 @@ jQuery(document).ready(function($) {
         // Initialiser le formulaire
         initForm();
         
-        // Calculer automatiquement au chargement
-        calculateInitialValues();
+        // Initialiser le système de steps
+        initSteps();
     }
     
     function loadChartJS() {
@@ -41,10 +41,9 @@ jQuery(document).ready(function($) {
     }
     
     function initSliders() {
-        // Sliders avec mise à jour en temps réel
+        // Sliders avec mise à jour en temps réel (sans calcul automatique)
         $('.solar-calc-slider').on('input', function() {
             updateSliderValue(this);
-            debounceCalculate();
         });
         
         // Initialiser les valeurs affichées
@@ -70,9 +69,6 @@ jQuery(document).ready(function($) {
             case 'solar-calc-roof-area':
                 displayText = value + ' m²';
                 break;
-            case 'solar-calc-roof-percentage':
-                displayText = value + '%';
-                break;
             default:
                 displayText = value;
         }
@@ -80,8 +76,7 @@ jQuery(document).ready(function($) {
         $valueDisplay.text(displayText);
         
         // Mettre à jour la surface de toit calculée si on est en mode aide
-        if ($slider.attr('id') === 'solar-calc-ground-area' || 
-            $slider.attr('id') === 'solar-calc-roof-percentage') {
+        if ($slider.attr('id') === 'solar-calc-ground-area') {
             updateCalculatedRoofArea();
         }
     }
@@ -98,21 +93,18 @@ jQuery(document).ready(function($) {
                 $('#solar-calc-roof-helper').show();
                 updateCalculatedRoofArea();
             }
-            
-            debounceCalculate();
         });
         
         // Événements pour les champs de l'aide au toit
-        $('#solar-calc-ground-area, #solar-calc-roof-type, #solar-calc-roof-percentage').on('input change', function() {
+        $('#solar-calc-ground-area, #solar-calc-roof-type').on('input change', function() {
             updateCalculatedRoofArea();
-            debounceCalculate();
         });
     }
     
     function updateCalculatedRoofArea() {
         const groundArea = parseFloat($('#solar-calc-ground-area').val()) || 100;
         const roofType = $('#solar-calc-roof-type').val();
-        const percentage = parseFloat($('#solar-calc-roof-percentage').val()) || 60;
+        const percentage = 60; // Pourcentage fixe utilisable
         
         const roofCoefficients = {
             'flat': 1.0,
@@ -129,6 +121,42 @@ jQuery(document).ready(function($) {
         updateSliderValue(document.getElementById('solar-calc-roof-area'));
     }
     
+    function initSteps() {
+        // Gérer les clics sur les titres de steps
+        $('.solar-calc-step-title').on('click', function() {
+            const $step = $(this).closest('.solar-calc-step');
+            const $content = $step.find('.solar-calc-step-content');
+            const $toggle = $step.find('.solar-calc-step-toggle');
+            
+            if ($content.is(':visible')) {
+                $content.slideUp(300);
+                $step.removeClass('active');
+            } else {
+                $content.slideDown(300);
+                $step.addClass('active');
+                
+                // Auto-ouvrir le step suivant après completion
+                autoOpenNextStep($step);
+            }
+        });
+        
+        // Ouvrir le premier step par défaut
+        $('.solar-calc-step-1').addClass('active');
+        $('.solar-calc-step-1 .solar-calc-step-content').show();
+    }
+    
+    function autoOpenNextStep($currentStep) {
+        // Attendre un peu puis ouvrir le step suivant
+        setTimeout(function() {
+            const currentStepNum = parseInt($currentStep.data('step'));
+            const $nextStep = $(`.solar-calc-step-${currentStepNum + 1}`);
+            
+            if ($nextStep.length && !$nextStep.hasClass('active')) {
+                $nextStep.find('.solar-calc-step-title').click();
+            }
+        }, 500);
+    }
+    
     function initForm() {
         $('#solar-calc-form').on('submit', function(e) {
             e.preventDefault();
@@ -138,23 +166,10 @@ jQuery(document).ready(function($) {
             }
         });
         
-        // Calcul automatique sur changement des autres champs
-        $('#solar-calc-orientation, #solar-calc-region').on('change', function() {
-            debounceCalculate();
-        });
+        // Pas de calcul automatique - seulement sur submit
     }
     
-    // Debounce pour éviter trop de calculs
-    let calculateTimeout;
-    function debounceCalculate() {
-        clearTimeout(calculateTimeout);
-        calculateTimeout = setTimeout(performCalculation, 300);
-    }
-    
-    function calculateInitialValues() {
-        // Calculer avec les valeurs par défaut après un court délai
-        setTimeout(performCalculation, 500);
-    }
+    // Pas de calcul automatique - calcul seulement sur submit
     
     function performCalculation() {
         if (isCalculating) return;
@@ -202,7 +217,7 @@ jQuery(document).ready(function($) {
             // Utiliser la surface calculée
             const groundArea = parseFloat($('#solar-calc-ground-area').val()) || 100;
             const roofType = $('#solar-calc-roof-type').val();
-            const percentage = parseFloat($('#solar-calc-roof-percentage').val()) || 60;
+            const percentage = 60; // Pourcentage fixe
             
             const roofCoefficients = {
                 'flat': 1.0,
@@ -219,8 +234,7 @@ jQuery(document).ready(function($) {
             consumption: parseInt($('#solar-calc-consumption').val()),
             bill: parseInt($('#solar-calc-bill').val()),
             roof_area: roofArea,
-            orientation: $('#solar-calc-orientation').val(),
-            region: $('#solar-calc-region').val()
+            orientation: $('#solar-calc-orientation').val()
         };
     }
     

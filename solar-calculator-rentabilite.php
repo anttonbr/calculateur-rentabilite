@@ -77,146 +77,148 @@ class SolarCalculatorRentabilite {
             <form id="solar-calc-form" class="solar-calc-form">
                 <?php wp_nonce_field('solar_calc_nonce', 'solar_calc_nonce_field'); ?>
                 
-                <div class="solar-calc-section">
-                    <h3 class="solar-calc-section-title">Votre consommation électrique</h3>
+                <div class="solar-calc-step solar-calc-step-1" data-step="1">
+                    <h3 class="solar-calc-step-title">
+                        <span class="solar-calc-step-number">1</span>
+                        Votre consommation électrique
+                        <span class="solar-calc-step-toggle">▼</span>
+                    </h3>
                     
-                    <div class="solar-calc-field-group">
-                        <label for="solar-calc-consumption" class="solar-calc-label">
-                            Consommation annuelle (kWh)
-                        </label>
-                        <div class="solar-calc-slider-container">
-                            <input type="range" 
-                                   id="solar-calc-consumption" 
-                                   name="consumption" 
-                                   min="1000" 
-                                   max="20000" 
-                                   value="5000" 
-                                   class="solar-calc-slider">
-                            <span class="solar-calc-value" id="solar-calc-consumption-value">5000 kWh</span>
-                        </div>
-                        <small class="solar-calc-help">Vous pouvez trouver cette info sur votre facture EDF</small>
-                    </div>
-                    
-                    <div class="solar-calc-field-group">
-                        <label for="solar-calc-bill" class="solar-calc-label">
-                            Facture électrique mensuelle (€)
-                        </label>
-                        <div class="solar-calc-slider-container">
-                            <input type="range" 
-                                   id="solar-calc-bill" 
-                                   name="bill" 
-                                   min="30" 
-                                   max="500" 
-                                   value="120" 
-                                   class="solar-calc-slider">
-                            <span class="solar-calc-value" id="solar-calc-bill-value">120 €/mois</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="solar-calc-section">
-                    <h3 class="solar-calc-section-title">Votre installation</h3>
-                    
-                    <div class="solar-calc-field-group">
-                        <label class="solar-calc-label">Connaissez-vous la surface de votre toit ?</label>
-                        <div class="solar-calc-radio-group">
-                            <label class="solar-calc-radio-label">
-                                <input type="radio" name="roof_known" value="yes" checked class="solar-calc-radio">
-                                Oui, je connais la surface
-                            </label>
-                            <label class="solar-calc-radio-label">
-                                <input type="radio" name="roof_known" value="no" class="solar-calc-radio">
-                                Non, j'ai besoin d'aide
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div id="solar-calc-roof-direct" class="solar-calc-field-group">
-                        <label for="solar-calc-roof-area" class="solar-calc-label">
-                            Surface de toit disponible (m²)
-                        </label>
-                        <div class="solar-calc-slider-container">
-                            <input type="range" 
-                                   id="solar-calc-roof-area" 
-                                   name="roof_area" 
-                                   min="10" 
-                                   max="200" 
-                                   value="50" 
-                                   class="solar-calc-slider">
-                            <span class="solar-calc-value" id="solar-calc-roof-area-value">50 m²</span>
-                        </div>
-                    </div>
-                    
-                    <div id="solar-calc-roof-helper" class="solar-calc-field-group" style="display: none;">
-                        <div class="solar-calc-helper-box">
-                            <h4 class="solar-calc-helper-title">Aide au calcul de surface</h4>
-                            
-                            <div class="solar-calc-field-group">
-                                <label for="solar-calc-ground-area" class="solar-calc-label">
-                                    Surface au sol de votre maison (m²)
-                                </label>
-                                <input type="number" 
-                                       id="solar-calc-ground-area" 
-                                       name="ground_area" 
-                                       min="50" 
-                                       max="500" 
-                                       value="100" 
-                                       class="solar-calc-input">
-                            </div>
-                            
-                            <div class="solar-calc-field-group">
-                                <label for="solar-calc-roof-type" class="solar-calc-label">Type de toit</label>
-                                <select id="solar-calc-roof-type" name="roof_type" class="solar-calc-select">
-                                    <option value="flat">Toit plat (coefficient 1.0)</option>
-                                    <option value="low" selected>Pente faible (coefficient 1.1)</option>
-                                    <option value="medium">Pente moyenne (coefficient 1.2)</option>
-                                    <option value="steep">Pente forte (coefficient 1.4)</option>
-                                </select>
-                            </div>
-                            
-                            <div class="solar-calc-field-group">
-                                <label for="solar-calc-roof-percentage" class="solar-calc-label">
-                                    Pourcentage utilisable (%)
+                    <div class="solar-calc-step-content">
+                        <div class="solar-calc-row">
+                            <div class="solar-calc-col">
+                                <label for="solar-calc-consumption" class="solar-calc-label">
+                                    Consommation annuelle (kWh)
                                 </label>
                                 <div class="solar-calc-slider-container">
                                     <input type="range" 
-                                           id="solar-calc-roof-percentage" 
-                                           name="roof_percentage" 
-                                           min="30" 
-                                           max="80" 
-                                           value="60" 
+                                           id="solar-calc-consumption" 
+                                           name="consumption" 
+                                           min="1000" 
+                                           max="20000" 
+                                           value="8800" 
                                            class="solar-calc-slider">
-                                    <span class="solar-calc-value" id="solar-calc-roof-percentage-value">60%</span>
+                                    <span class="solar-calc-value" id="solar-calc-consumption-value">8800 kWh</span>
                                 </div>
-                                <small class="solar-calc-help">En tenant compte des obstacles (cheminées, velux, etc.)</small>
+                                <small class="solar-calc-help">💡 Moyenne pour un foyer de 4 personnes : 8 800 kWh/an. Trouvez cette info sur votre facture EDF.</small>
+                            </div>
+                            
+                            <div class="solar-calc-col">
+                                <label for="solar-calc-bill" class="solar-calc-label">
+                                    Facture électrique mensuelle (€)
+                                </label>
+                                <div class="solar-calc-slider-container">
+                                    <input type="range" 
+                                           id="solar-calc-bill" 
+                                           name="bill" 
+                                           min="30" 
+                                           max="500" 
+                                           value="150" 
+                                           class="solar-calc-slider">
+                                    <span class="solar-calc-value" id="solar-calc-bill-value">150 €/mois</span>
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                
+                <div class="solar-calc-step solar-calc-step-2" data-step="2">
+                    <h3 class="solar-calc-step-title">
+                        <span class="solar-calc-step-number">2</span>
+                        Surface de votre toit
+                        <span class="solar-calc-step-toggle">▼</span>
+                    </h3>
                     
-                    <div class="solar-calc-field-group">
-                        <label for="solar-calc-orientation" class="solar-calc-label">Orientation du toit</label>
-                        <select id="solar-calc-orientation" name="orientation" class="solar-calc-select">
-                            <option value="south">Sud (optimal)</option>
-                            <option value="southeast">Sud-Est (bon)</option>
-                            <option value="southwest">Sud-Ouest (bon)</option>
-                            <option value="east">Est (correct)</option>
-                            <option value="west">Ouest (correct)</option>
-                            <option value="north">Nord (non recommandé)</option>
-                        </select>
+                    <div class="solar-calc-step-content" style="display: none;">
+                        <div class="solar-calc-row">
+                            <div class="solar-calc-col">
+                                <label class="solar-calc-label">Connaissez-vous la surface de votre toit ?</label>
+                                <div class="solar-calc-radio-group">
+                                    <label class="solar-calc-radio-label">
+                                        <input type="radio" name="roof_known" value="yes" checked class="solar-calc-radio">
+                                        Oui, je connais la surface
+                                    </label>
+                                    <label class="solar-calc-radio-label">
+                                        <input type="radio" name="roof_known" value="no" class="solar-calc-radio">
+                                        Non, j'ai besoin d'aide
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="solar-calc-roof-direct" class="solar-calc-row">
+                            <div class="solar-calc-col">
+                                <label for="solar-calc-roof-area" class="solar-calc-label">
+                                    Surface de toit disponible (m²)
+                                </label>
+                                <div class="solar-calc-slider-container">
+                                    <input type="range" 
+                                           id="solar-calc-roof-area" 
+                                           name="roof_area" 
+                                           min="10" 
+                                           max="200" 
+                                           value="50" 
+                                           class="solar-calc-slider">
+                                    <span class="solar-calc-value" id="solar-calc-roof-area-value">50 m²</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="solar-calc-roof-helper" style="display: none;">
+                            <div class="solar-calc-helper-box">
+                                <h4 class="solar-calc-helper-title">Aide au calcul de surface</h4>
+                                
+                                <div class="solar-calc-row">
+                                    <div class="solar-calc-col">
+                                        <label for="solar-calc-ground-area" class="solar-calc-label">
+                                            Surface au sol de votre maison (m²)
+                                        </label>
+                                        <input type="number" 
+                                               id="solar-calc-ground-area" 
+                                               name="ground_area" 
+                                               min="50" 
+                                               max="500" 
+                                               value="100" 
+                                               class="solar-calc-input">
+                                    </div>
+                                    
+                                    <div class="solar-calc-col">
+                                        <label for="solar-calc-roof-type" class="solar-calc-label">Type de toit</label>
+                                        <select id="solar-calc-roof-type" name="roof_type" class="solar-calc-select">
+                                            <option value="flat">Toit plat (coefficient 1.0)</option>
+                                            <option value="low" selected>Pente faible (coefficient 1.1)</option>
+                                            <option value="medium">Pente moyenne (coefficient 1.2)</option>
+                                            <option value="steep">Pente forte (coefficient 1.4)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="solar-calc-section">
-                    <h3 class="solar-calc-section-title">Localisation</h3>
+                <div class="solar-calc-step solar-calc-step-3" data-step="3">
+                    <h3 class="solar-calc-step-title">
+                        <span class="solar-calc-step-number">3</span>
+                        Orientation du toit
+                        <span class="solar-calc-step-toggle">▼</span>
+                    </h3>
                     
-                    <div class="solar-calc-field-group">
-                        <label for="solar-calc-region" class="solar-calc-label">Région</label>
-                        <select id="solar-calc-region" name="region" class="solar-calc-select">
-                            <option value="north">Nord</option>
-                            <option value="center" selected>Centre</option>
-                            <option value="south">Sud</option>
-                            <option value="overseas">Outre-mer</option>
-                        </select>
+                    <div class="solar-calc-step-content" style="display: none;">
+                        <div class="solar-calc-row">
+                            <div class="solar-calc-col">
+                                <label for="solar-calc-orientation" class="solar-calc-label">Orientation principale</label>
+                                <select id="solar-calc-orientation" name="orientation" class="solar-calc-select">
+                                    <option value="all">Toutes orientations (panneaux répartis)</option>
+                                    <option value="south" selected>Sud (optimal)</option>
+                                    <option value="southeast">Sud-Est (très bon)</option>
+                                    <option value="southwest">Sud-Ouest (très bon)</option>
+                                    <option value="east">Est (bon)</option>
+                                    <option value="west">Ouest (bon)</option>
+                                    <option value="north">Nord (non recommandé)</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -288,17 +290,17 @@ class SolarCalculatorRentabilite {
         $bill = intval($_POST['bill']);
         $roof_area = floatval($_POST['roof_area']);
         $orientation = sanitize_text_field($_POST['orientation']);
-        $region = sanitize_text_field($_POST['region']);
         
         // Effectuer les calculs
-        $results = $this->solar_calc_perform_calculations($consumption, $bill, $roof_area, $orientation, $region);
+        $results = $this->solar_calc_perform_calculations($consumption, $bill, $roof_area, $orientation);
         
         wp_send_json_success($results);
     }
     
-    private function solar_calc_perform_calculations($consumption, $bill, $roof_area, $orientation, $region) {
+    private function solar_calc_perform_calculations($consumption, $bill, $roof_area, $orientation) {
         // Coefficients de calcul
         $orientation_coeffs = array(
+            'all' => 0.9,  // Moyenne pour toutes orientations
             'south' => 1.0,
             'southeast' => 0.95,
             'southwest' => 0.95,
@@ -307,16 +309,9 @@ class SolarCalculatorRentabilite {
             'north' => 0.6
         );
         
-        $region_coeffs = array(
-            'north' => 900,
-            'center' => 1100,
-            'south' => 1300,
-            'overseas' => 1500
-        );
-        
         // Calculs
         $orientation_coeff = $orientation_coeffs[$orientation] ?? 1.0;
-        $irradiation = $region_coeffs[$region] ?? 1100;
+        $irradiation = 1100; // Moyenne France
         
         // Puissance installable (kWc) - environ 6m² par kWc
         $power_kwc = ($roof_area / 6);
