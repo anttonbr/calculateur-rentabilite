@@ -1,0 +1,453 @@
+/**
+ * Styles pour le Simulateur de Rentabilité Panneaux Solaires
+ * Couleurs principales : #303030 (principal) et #D45F2C (mise en avant)
+ */
+
+/* Container principal */
+.solar-calc-wrapper {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(48, 48, 48, 0.1);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    color: #303030;
+    line-height: 1.6;
+}
+
+/* Header */
+.solar-calc-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #f5f5f5;
+}
+
+.solar-calc-title {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: #303030;
+    margin: 0 0 10px 0;
+}
+
+.solar-calc-subtitle {
+    font-size: 1.1em;
+    color: #666;
+    margin: 0;
+    font-weight: 400;
+}
+
+/* Sections du formulaire */
+.solar-calc-section {
+    margin-bottom: 35px;
+    padding: 25px;
+    background: #fafafa;
+    border-radius: 8px;
+    border-left: 4px solid #D45F2C;
+}
+
+.solar-calc-section-title {
+    font-size: 1.4em;
+    font-weight: 600;
+    color: #303030;
+    margin: 0 0 20px 0;
+    display: flex;
+    align-items: center;
+}
+
+.solar-calc-section-title::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: #D45F2C;
+    border-radius: 50%;
+    margin-right: 12px;
+}
+
+/* Groupes de champs */
+.solar-calc-field-group {
+    margin-bottom: 25px;
+}
+
+.solar-calc-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #303030;
+    font-size: 1em;
+}
+
+/* Sliders */
+.solar-calc-slider-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 5px;
+}
+
+.solar-calc-slider {
+    flex: 1;
+    -webkit-appearance: none;
+    height: 8px;
+    border-radius: 4px;
+    background: #e0e0e0;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.solar-calc-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #D45F2C;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(212, 95, 44, 0.3);
+    transition: all 0.3s ease;
+}
+
+.solar-calc-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(212, 95, 44, 0.4);
+}
+
+.solar-calc-slider::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #D45F2C;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 8px rgba(212, 95, 44, 0.3);
+    transition: all 0.3s ease;
+}
+
+.solar-calc-value {
+    min-width: 100px;
+    padding: 8px 15px;
+    background: #D45F2C;
+    color: white;
+    border-radius: 20px;
+    font-weight: 600;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+/* Inputs et selects */
+.solar-calc-input,
+.solar-calc-select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 1em;
+    color: #303030;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.solar-calc-input:focus,
+.solar-calc-select:focus {
+    outline: none;
+    border-color: #D45F2C;
+    box-shadow: 0 0 0 3px rgba(212, 95, 44, 0.1);
+}
+
+/* Radio buttons */
+.solar-calc-radio-group {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.solar-calc-radio-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 500;
+    padding: 10px 15px;
+    border-radius: 6px;
+    border: 2px solid #e0e0e0;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.solar-calc-radio-label:hover {
+    border-color: #D45F2C;
+    background: #fff5f2;
+}
+
+.solar-calc-radio {
+    margin-right: 8px;
+    accent-color: #D45F2C;
+}
+
+.solar-calc-radio-label input[type="radio"]:checked + span,
+.solar-calc-radio-label:has(input[type="radio"]:checked) {
+    border-color: #D45F2C;
+    background: #fff5f2;
+    color: #D45F2C;
+}
+
+/* Helper box */
+.solar-calc-helper-box {
+    background: #f9f9f9;
+    border: 2px dashed #D45F2C;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 15px;
+}
+
+.solar-calc-helper-title {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #D45F2C;
+    margin: 0 0 15px 0;
+    display: flex;
+    align-items: center;
+}
+
+.solar-calc-helper-title::before {
+    content: '💡';
+    margin-right: 8px;
+}
+
+/* Texte d'aide */
+.solar-calc-help {
+    color: #888;
+    font-style: italic;
+    font-size: 0.9em;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Bouton principal */
+.solar-calc-button {
+    width: 100%;
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #D45F2C, #e67347);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 20px;
+}
+
+.solar-calc-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(212, 95, 44, 0.3);
+    background: linear-gradient(135deg, #c55428, #D45F2C);
+}
+
+.solar-calc-button:active {
+    transform: translateY(0);
+}
+
+/* Zone de résultats */
+.solar-calc-results {
+    margin-top: 40px;
+    padding: 30px;
+    background: linear-gradient(135deg, #f8f9fa, #ffffff);
+    border-radius: 12px;
+    border: 2px solid #D45F2C;
+}
+
+/* Loading */
+.solar-calc-loading {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.solar-calc-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #e0e0e0;
+    border-top: 4px solid #D45F2C;
+    border-radius: 50%;
+    animation: solar-calc-spin 1s linear infinite;
+    margin: 0 auto 15px;
+}
+
+@keyframes solar-calc-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Titre des résultats */
+.solar-calc-results-title {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #303030;
+    text-align: center;
+    margin: 0 0 25px 0;
+}
+
+/* Box mise en avant */
+.solar-calc-highlight-box {
+    background: linear-gradient(135deg, #D45F2C, #e67347);
+    color: white;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 25px rgba(212, 95, 44, 0.2);
+}
+
+.solar-calc-big-number {
+    font-size: 3em;
+    font-weight: 800;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.solar-calc-savings-text {
+    font-size: 1.2em;
+    margin: 0;
+    opacity: 0.9;
+}
+
+/* Détails des résultats */
+.solar-calc-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.solar-calc-detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    border-left: 4px solid #D45F2C;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.solar-calc-detail-label {
+    font-weight: 600;
+    color: #303030;
+}
+
+.solar-calc-detail-value {
+    font-weight: 700;
+    color: #D45F2C;
+    font-size: 1.1em;
+}
+
+/* Container du graphique */
+.solar-calc-chart-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .solar-calc-wrapper {
+        margin: 10px;
+        padding: 20px;
+    }
+    
+    .solar-calc-title {
+        font-size: 1.8em;
+    }
+    
+    .solar-calc-section {
+        padding: 20px;
+    }
+    
+    .solar-calc-slider-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+    
+    .solar-calc-value {
+        min-width: auto;
+        text-align: center;
+    }
+    
+    .solar-calc-radio-group {
+        flex-direction: column;
+    }
+    
+    .solar-calc-big-number {
+        font-size: 2.2em;
+    }
+    
+    .solar-calc-details {
+        grid-template-columns: 1fr;
+    }
+    
+    .solar-calc-detail-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 5px;
+    }
+}
+
+/* Animation d'entrée */
+.solar-calc-wrapper {
+    animation: solar-calc-fadeIn 0.6s ease-out;
+}
+
+@keyframes solar-calc-fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animations pour les résultats */
+.solar-calc-results-content {
+    animation: solar-calc-slideIn 0.5s ease-out;
+}
+
+@keyframes solar-calc-slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* États de focus améliorés */
+.solar-calc-button:focus,
+.solar-calc-slider:focus,
+.solar-calc-input:focus,
+.solar-calc-select:focus {
+    outline: 3px solid rgba(212, 95, 44, 0.3);
+    outline-offset: 2px;
+}
+
+/* Amélioration de l'accessibilité */
+.solar-calc-radio:focus {
+    outline: 2px solid #D45F2C;
+    outline-offset: 2px;
+}
+
+/* Style pour les navigateurs qui supportent les variables CSS */
+:root {
+    --solar-calc-primary: #303030;
+    --solar-calc-accent: #D45F2C;
+    --solar-calc-light: #f8f9fa;
+    --solar-calc-white: #ffffff;
+    --solar-calc-shadow: rgba(48, 48, 48, 0.1);
+} 
