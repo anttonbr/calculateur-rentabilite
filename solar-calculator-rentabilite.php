@@ -313,8 +313,17 @@ class SolarCalculatorRentabilite {
         $orientation_coeff = $orientation_coeffs[$orientation] ?? 1.0;
         $irradiation = 1100; // Moyenne France
         
-        // Puissance installable (kWc) - environ 6m² par kWc
-        $power_kwc = ($roof_area / 6);
+        // Puissance installable théorique (kWc) - environ 6m² par kWc
+        $theoretical_power = ($roof_area / 6);
+        
+        // Arrondir à la puissance standard la plus proche (3, 6, 9 kWc)
+        if ($theoretical_power <= 4.5) {
+            $power_kwc = 3;
+        } elseif ($theoretical_power <= 7.5) {
+            $power_kwc = 6;
+        } else {
+            $power_kwc = 9; // Maximum recommandé pour éviter les installations trop rares
+        }
         
         // Production annuelle (kWh)
         $annual_production = $power_kwc * $irradiation * $orientation_coeff;
@@ -333,9 +342,8 @@ class SolarCalculatorRentabilite {
         $savings_feed_in = $excess_production * $feed_in_tariff;
         $yearly_savings = $savings_self_consumption + $savings_feed_in;
         
-        // Investissement et retour
-        $cost_per_kwc = 2500; // Coût moyen par kWc installé
-        $total_investment = $power_kwc * $cost_per_kwc;
+        // Calcul du coût d'installation réaliste selon les données marché
+        $total_investment = $this->solar_calc_get_installation_cost($power_kwc);
         $payback_years = $total_investment / $yearly_savings;
         
         // Nombre de panneaux (environ 400W par panneau)
@@ -350,6 +358,21 @@ class SolarCalculatorRentabilite {
             'payback_years' => round($payback_years),
             'chart_data' => $this->solar_calc_generate_chart_data($yearly_savings, $total_investment, $payback_years)
         );
+    }
+    
+    private function solar_calc_get_installation_cost($power_kwc) {
+        // Coûts réalistes 2024 selon données marché (installations RGE)
+        switch ($power_kwc) {
+            case 3:
+                return 7000; // Moyenne de 6 000€ - 8 000€
+            case 6:
+                return 11500; // Moyenne de 10 000€ - 13 000€
+            case 9:
+                return 16500; // Moyenne de 15 000€ - 18 000€
+            default:
+                // Pour toute autre puissance (cas rare), calcul proportionnel
+                return round($power_kwc * 1833); // ~1833€/kWc (moyenne du marché)
+        }
     }
     
     private function solar_calc_generate_chart_data($yearly_savings, $total_investment, $payback_years) {
