@@ -5,13 +5,9 @@
 
 /* Container principal */
 .solar-calc-wrapper {
-    max-width: 800px;
-    margin: 20px auto;
     padding: 30px;
     background: #ffffff;
     border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(48, 48, 48, 0.1);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     color: #303030;
     line-height: 1.6;
 }
@@ -25,8 +21,6 @@
 }
 
 .solar-calc-title {
-    font-size: 2.2em;
-    font-weight: 700;
     color: #303030;
     margin: 0 0 10px 0;
 }
@@ -330,8 +324,8 @@
 
 /* Titre des résultats */
 .solar-calc-results-title {
-    font-size: 1.8em;
-    font-weight: 700;
+    /*font-size: 1.8em;
+    font-weight: 700;*/
     color: #303030;
     text-align: center;
     margin: 0 0 25px 0;
