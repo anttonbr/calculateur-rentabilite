@@ -324,8 +324,6 @@
 
 /* Titre des résultats */
 .solar-calc-results-title {
-    /*font-size: 1.8em;
-    font-weight: 700;*/
     color: #303030;
     text-align: center;
     margin: 0 0 25px 0;
@@ -343,7 +341,7 @@
 }
 
 .solar-calc-big-number {
-    font-size: 3em;
+    font-size: 2em;
     font-weight: 800;
     margin-bottom: 10px;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -358,7 +356,7 @@
 /* Détails des résultats */
 .solar-calc-details {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 15px;
     margin-bottom: 30px;
 }
@@ -433,7 +431,7 @@
     }
     
     .solar-calc-big-number {
-        font-size: 2.2em;
+        font-size: 1.8em;
     }
     
     .solar-calc-details {
@@ -444,6 +442,11 @@
         flex-direction: column;
         text-align: center;
         gap: 5px;
+    }
+
+    /* Hide chart container on small screens */
+    .solar-calc-chart-container {
+        display: none;
     }
 }
 
