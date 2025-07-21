@@ -77,6 +77,8 @@
     font-weight: 700;
     font-size: 0.9em;
     margin-right: 15px;
+    /* Keep circle from shrinking */
+    flex: 0 0 28px;
 }
 
 .solar-calc-step-toggle {
