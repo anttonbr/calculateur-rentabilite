@@ -44,6 +44,13 @@ jQuery(document).ready(function($) {
         // Sliders avec mise à jour en temps réel (sans calcul automatique)
         $('.solar-calc-slider').on('input', function() {
             updateSliderValue(this);
+            
+            // NOUVEAU : Synchroniser consommation et facture
+            if ($(this).attr('id') === 'solar-calc-consumption') {
+                updateBillFromConsumption();
+            } else if ($(this).attr('id') === 'solar-calc-bill') {
+                updateConsumptionFromBill();
+            }
         });
         
         // Initialiser les valeurs affichées
@@ -79,6 +86,54 @@ jQuery(document).ready(function($) {
         if ($slider.attr('id') === 'solar-calc-ground-area') {
             updateCalculatedRoofArea();
         }
+    }
+    
+    // NOUVEAU : Fonctions pour synchroniser consommation et facture
+    // Prix moyen de l'électricité en France : environ 0.216 €/kWh TTC (tarif réglementé 2024)
+    const ELECTRICITY_PRICE = 0.216;
+    
+    function updateBillFromConsumption() {
+        const consumption = parseInt($('#solar-calc-consumption').val());
+        // Calcul de la facture mensuelle basée sur la consommation annuelle
+        const monthlyBill = Math.round((consumption * ELECTRICITY_PRICE) / 12);
+        
+        // Limiter aux bornes du slider (30-500€)
+        const clampedBill = Math.max(30, Math.min(500, monthlyBill));
+        
+        // Mettre à jour le slider de la facture sans déclencher l'event input
+        $('#solar-calc-bill').off('input');
+        $('#solar-calc-bill').val(clampedBill);
+        updateSliderValue(document.getElementById('solar-calc-bill'));
+        
+        // Réactiver l'event handler après mise à jour
+        setTimeout(function() {
+            $('#solar-calc-bill').on('input', function() {
+                updateSliderValue(this);
+                updateConsumptionFromBill();
+            });
+        }, 100);
+    }
+    
+    function updateConsumptionFromBill() {
+        const monthlyBill = parseInt($('#solar-calc-bill').val());
+        // Calcul de la consommation annuelle basée sur la facture mensuelle
+        const consumption = Math.round((monthlyBill * 12) / ELECTRICITY_PRICE);
+        
+        // Limiter aux bornes du slider (1000-20000 kWh)
+        const clampedConsumption = Math.max(1000, Math.min(20000, consumption));
+        
+        // Mettre à jour le slider de consommation sans déclencher l'event input
+        $('#solar-calc-consumption').off('input');
+        $('#solar-calc-consumption').val(clampedConsumption);
+        updateSliderValue(document.getElementById('solar-calc-consumption'));
+        
+        // Réactiver l'event handler après mise à jour
+        setTimeout(function() {
+            $('#solar-calc-consumption').on('input', function() {
+                updateSliderValue(this);
+                updateBillFromConsumption();
+            });
+        }, 100);
     }
     
     function initRoofHelper() {

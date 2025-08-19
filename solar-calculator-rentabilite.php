@@ -313,16 +313,36 @@ class SolarCalculatorRentabilite {
         $orientation_coeff = $orientation_coeffs[$orientation] ?? 1.0;
         $irradiation = 1100; // Moyenne France
         
-        // Puissance installable théorique (kWc) - environ 6m² par kWc
-        $theoretical_power = ($roof_area / 6);
+        // NOUVEAU : Calcul basé sur la consommation réelle
+        // Règle pratique : la production idéale = 80-100% de la consommation annuelle
+        $target_production = $consumption * 0.9; // Viser 90% de la consommation
         
-        // Arrondir à la puissance standard la plus proche (3, 6, 9 kWc)
-        if ($theoretical_power <= 4.5) {
+        // Calculer la puissance nécessaire en kWc pour atteindre cette production
+        $needed_power = $target_production / ($irradiation * $orientation_coeff);
+        
+        // Puissance maximale installable selon la surface (environ 6m² par kWc)
+        $max_power_by_roof = ($roof_area / 6);
+        
+        // Prendre le minimum entre le besoin et la capacité du toit
+        $theoretical_power = min($needed_power, $max_power_by_roof);
+        
+        // NOUVEAU : Logique ajustée pour favoriser 3kWc et 6kWc
+        // Basé sur la consommation moyenne française :
+        // - Petit foyer (< 5000 kWh/an) → 3kWc
+        // - Foyer moyen (5000-10000 kWh/an) → 6kWc  
+        // - Grand foyer (> 10000 kWh/an) → 9kWc
+        if ($consumption < 5000 || $theoretical_power <= 3.5) {
             $power_kwc = 3;
-        } elseif ($theoretical_power <= 7.5) {
+        } elseif ($consumption < 10000 || $theoretical_power <= 6.5) {
             $power_kwc = 6;
         } else {
-            $power_kwc = 9; // Maximum recommandé pour éviter les installations trop rares
+            // Ne proposer 9kWc que pour les très grosses consommations
+            // ET si le toit le permet
+            if ($theoretical_power >= 8) {
+                $power_kwc = 9;
+            } else {
+                $power_kwc = 6; // Par défaut, rester sur 6kWc
+            }
         }
         
         // Production annuelle (kWh)
