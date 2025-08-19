@@ -59,26 +59,82 @@
     background: #ffffff;
     border-bottom: 1px solid #e0e0e0;
     transition: all 0.3s ease;
+    /* Prevent flex children from shrinking */
+    flex-shrink: 0;
+}
+
+/* Fix for mobile to ensure circles stay round */
+@media (max-width: 768px) {
+    .solar-calc-step-title {
+        /* Reset flex behavior on mobile if needed */
+        flex-wrap: nowrap;
+    }
+    
+    .solar-calc-step-number {
+        /* Force exact dimensions on mobile */
+        width: 28px !important;
+        height: 28px !important;
+        min-width: 28px !important;
+        min-height: 28px !important;
+        max-width: 28px !important;
+        max-height: 28px !important;
+        /* Ensure perfect circle */
+        border-radius: 50% !important;
+        /* Reset any inherited flex properties */
+        flex: none !important;
+        float: none !important;
+        display: inline-block !important;
+        /* Vertical alignment fix */
+        vertical-align: middle !important;
+    }
 }
 
 .solar-calc-step-title:hover {
     background: #f8f9fa;
 }
 
-.solar-calc-step-number {
-    background: #D45F2C;
-    color: white;
+/* Wrapper to isolate the number circle */
+.solar-calc-step-number-wrapper {
     width: 28px;
     height: 28px;
-    border-radius: 50%;
+    margin-right: 15px;
+    flex-shrink: 0;
+    flex-grow: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.solar-calc-step-number {
+    /* Fixed dimensions - absolute sizing */
+    width: 28px;
+    height: 28px;
+    /* Perfect circle */
+    border-radius: 50%;
+    background: #D45F2C;
+    color: white;
+    /* Text */
     font-weight: 700;
-    font-size: 0.9em;
-    margin-right: 15px;
-    /* Keep circle from shrinking */
-    flex: 0 0 28px;
+    font-size: 14px;
+    line-height: 28px;
+    text-align: center;
+    /* Block display to guarantee dimensions */
+    display: block;
+    /* No margin/padding that could affect shape */
+    margin: 0;
+    padding: 0;
+    /* Prevent any text overflow */
+    overflow: hidden;
+    /* Ensure box model doesn't affect dimensions */
+    box-sizing: border-box;
+}
+
+/* Text next to the number */
+.solar-calc-step-text {
+    flex: 1;
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #303030;
 }
 
 .solar-calc-step-toggle {

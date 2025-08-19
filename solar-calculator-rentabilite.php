@@ -79,8 +79,10 @@ class SolarCalculatorRentabilite {
                 
                 <div class="solar-calc-step solar-calc-step-1" data-step="1">
                     <h3 class="solar-calc-step-title">
-                        <span class="solar-calc-step-number">1</span>
-                        Votre consommation électrique
+                        <div class="solar-calc-step-number-wrapper">
+                            <span class="solar-calc-step-number">1</span>
+                        </div>
+                        <span class="solar-calc-step-text">Votre consommation électrique</span>
                         <span class="solar-calc-step-toggle">▼</span>
                     </h3>
                     
@@ -124,8 +126,10 @@ class SolarCalculatorRentabilite {
                 
                 <div class="solar-calc-step solar-calc-step-2" data-step="2">
                     <h3 class="solar-calc-step-title">
-                        <span class="solar-calc-step-number">2</span>
-                        Surface de votre toit
+                        <div class="solar-calc-step-number-wrapper">
+                            <span class="solar-calc-step-number">2</span>
+                        </div>
+                        <span class="solar-calc-step-text">Surface de votre toit</span>
                         <span class="solar-calc-step-toggle">▼</span>
                     </h3>
                     
@@ -199,8 +203,10 @@ class SolarCalculatorRentabilite {
                 
                 <div class="solar-calc-step solar-calc-step-3" data-step="3">
                     <h3 class="solar-calc-step-title">
-                        <span class="solar-calc-step-number">3</span>
-                        Orientation du toit
+                        <div class="solar-calc-step-number-wrapper">
+                            <span class="solar-calc-step-number">3</span>
+                        </div>
+                        <span class="solar-calc-step-text">Orientation du toit</span>
                         <span class="solar-calc-step-toggle">▼</span>
                     </h3>
                     
